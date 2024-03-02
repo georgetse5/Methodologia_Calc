@@ -1,1 +1,0 @@
-"# Methodologia_Calc" 
