@@ -353,6 +353,9 @@ class Main extends JFrame implements KeyListener, ActionListener{
         if (tempCode == 127) {
             entry.setText("");
         }
+        if (tempCode == 110) {
+            updateText(entry, ".", entry.getCaretPosition());
+        }
 
 //        System.out.println("You Released key char: " + e.getKeyChar());
 //        System.out.println("You Released key char: " + e.getKeyCode());
