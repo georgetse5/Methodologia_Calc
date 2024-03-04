@@ -11,7 +11,7 @@ import java.util.Locale;
 import static javax.swing.UIManager.getString;
 
 
-class Main extends JFrame implements ActionListener {
+class Main extends JFrame implements KeyListener, ActionListener{
 
     JTextField entry, history;
     double stath1, stath2, apotel, met, memStored;
@@ -31,6 +31,9 @@ class Main extends JFrame implements ActionListener {
 
     Main() {
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addKeyListener(this);
+        this.setVisible(true);
 
         container = getContentPane();
         container.setLayout(new BorderLayout());
@@ -56,15 +59,16 @@ class Main extends JFrame implements ActionListener {
         entry.setHorizontalAlignment(SwingConstants.RIGHT);
         entry.setBorder(null);
 
-        entry.addKeyListener(new KeyAdapter() {
-            public void keyTped(KeyEvent keyevent) {
-                char c = keyevent.getKeyChar();
-                if (c >= '0' && c <= '9') {
-                } else {
-                    keyevent.consume();
-                }
-            }
-        });
+//        entry.addKeyListener(new KeyAdapter() {
+//            public void keyTyped(KeyEvent keyevent) {
+//                char c = keyevent.getKeyChar();
+//                if (c >= '0' && c <= '9') {
+//
+//                } else {
+//                    keyevent.consume();
+//                }
+//            }
+//        });
         //        historyPanel.add(historyField, BorderLayout.NORTH);
         historyPanel.add(history);
         textPanel.add(entry);
@@ -77,26 +81,31 @@ class Main extends JFrame implements ActionListener {
         mcButton = new JButton("MC");
         mcButton.setFont(buttonFont);
         panel_button.add(mcButton);
+        mcButton.setFocusable(false);
         mcButton.addActionListener(this);
 
         mrButton = new JButton("MR");
         mrButton.setFont(buttonFont);
         panel_button.add(mrButton);
+        mrButton.setFocusable(false);
         mrButton.addActionListener(this);
 
         mpButton = new JButton("M+");
         mpButton.setFont(buttonFont);
         panel_button.add(mpButton);
+        mpButton.setFocusable(false);
         mpButton.addActionListener(this);
 
         mmButton = new JButton("M-");
         mmButton.setFont(buttonFont);
         panel_button.add(mmButton);
+        mmButton.setFocusable(false);
         mmButton.addActionListener(this);
 
         msButton = new JButton("MS");
         msButton.setFont(buttonFont);
         panel_button.add(msButton);
+        msButton.setFocusable(false);
         msButton.addActionListener(this);
 
         //Row 2
@@ -105,37 +114,44 @@ class Main extends JFrame implements ActionListener {
         clrAllButton.setForeground(Color.RED);
         clrAllButton.setFont(buttonFont);
         panel_button.add(clrAllButton);
+        clrAllButton.setFocusable(false);
         clrAllButton.addActionListener(this);
 
         clrButton = new JButton("CE");
         clrButton.setForeground(Color.RED);
         clrButton.setFont(buttonFont);
         panel_button.add(clrButton);
+        clrButton.setFocusable(false);
         clrButton.addActionListener(this);
 
         pow2Button = new JButton("x²");
         pow2Button.setFont(buttonFont);
         panel_button.add(pow2Button);
+        pow2Button.setFocusable(false);
         pow2Button.addActionListener(this);
 
         piButton = new JButton("Π");
         piButton.setFont(buttonFont);
+        piButton.setFocusable(false);
         piButton.addActionListener(this);
         panel_button.add(piButton);
 
         degreesToRadButton = new JButton("rad");
         degreesToRadButton.setFont(buttonFont);
+        degreesToRadButton.setFocusable(false);
         degreesToRadButton.addActionListener(this);
         panel_button.add(degreesToRadButton);
 
         absButton = new JButton("ABS");
         absButton.setFont(buttonFont);
+        absButton.setFocusable(false);
         absButton.addActionListener(this);
         panel_button.add(absButton);
 
         sqrtButton = new JButton("√");
         sqrtButton.setFont(buttonFont);
         panel_button.add(sqrtButton);
+        sqrtButton.setFocusable(false);
         sqrtButton.addActionListener(this);
 
         //Row 3
@@ -143,21 +159,25 @@ class Main extends JFrame implements ActionListener {
         logButton = new JButton("log");
         logButton.setFont(buttonFont);
         panel_button.add(logButton);
+        logButton.setFocusable(false);
         logButton.addActionListener(this);
 
         sinButton = new JButton("SIN");
         sinButton.setFont(buttonFont);
         panel_button.add(sinButton);
+        sinButton.setFocusable(false);
         sinButton.addActionListener(this);
 
         cosButton = new JButton("COS");
         cosButton.setFont(buttonFont);
         panel_button.add(cosButton);
+        cosButton.setFocusable(false);
         cosButton.addActionListener(this);
 
         expButton = new JButton("Exp");
         expButton.setFont(buttonFont);
         panel_button.add(expButton);
+        expButton.setFocusable(false);
         expButton.addActionListener(this);
 
         //Row 4
@@ -166,20 +186,24 @@ class Main extends JFrame implements ActionListener {
         backspaceButton.setForeground(Color.BLUE);
         backspaceButton.setFont(buttonFont);
         panel_button.add(backspaceButton);
+        backspaceButton.setFocusable(false);
         backspaceButton.addActionListener(this);
 
         leftParButton = new JButton("(");
         leftParButton.setFont(buttonFont);
         panel_button.add(leftParButton);
+        leftParButton.setFocusable(false);
         leftParButton.addActionListener(this);
 
         rightParButton = new JButton(")");
         rightParButton.setFont(buttonFont);
         panel_button.add(rightParButton);
+        rightParButton.setFocusable(false);
         rightParButton.addActionListener(this);
 
         divButton = new JButton("÷");
         divButton.setFont(buttonFont);
+        divButton.setFocusable(false);
         divButton.addActionListener(this);
         panel_button.add(divButton);
 
@@ -189,23 +213,27 @@ class Main extends JFrame implements ActionListener {
         But7.setForeground(Color.RED);
         But7.setFont(buttonFont);
         panel_button.add(But7);
+        But7.setFocusable(false);
         But7.addActionListener(this);
 
         But8 = new JButton("8");
         But8.setForeground(Color.RED);
         But8.setFont(buttonFont);
         panel_button.add(But8);
+        But8.setFocusable(false);
         But8.addActionListener(this);
 
         But9 = new JButton("9");
         But9.setForeground(Color.RED);
         But9.setFont(buttonFont);
         panel_button.add(But9);
+        But9.setFocusable(false);
         But9.addActionListener(this);
 
         mulButton = new JButton("*");
         mulButton.setFont(buttonFont);
         panel_button.add(mulButton);
+        mulButton.setFocusable(false);
         mulButton.addActionListener(this);
 
         //Row 6
@@ -214,23 +242,27 @@ class Main extends JFrame implements ActionListener {
         But4.setForeground(Color.RED);
         But4.setFont(buttonFont);
         panel_button.add(But4);
+        But4.setFocusable(false);
         But4.addActionListener(this);
 
         But5 = new JButton("5");
         But5.setForeground(Color.RED);
         But5.setFont(buttonFont);
         panel_button.add(But5);
+        But5.setFocusable(false);
         But5.addActionListener(this);
 
         But6 = new JButton("6");
         But6.setForeground(Color.RED);
         But6.setFont(buttonFont);
         panel_button.add(But6);
+        But6.setFocusable(false);
         But6.addActionListener(this);
 
         minButton = new JButton("-");
         minButton.setFont(buttonFont);
         panel_button.add(minButton);
+        minButton.setFocusable(false);
         minButton.addActionListener(this);
 
         //Row 7
@@ -239,23 +271,27 @@ class Main extends JFrame implements ActionListener {
         But1.setForeground(Color.RED);
         But1.setFont(buttonFont);
         panel_button.add(But1);
+        But1.setFocusable(false);
         But1.addActionListener(this);
 
         But2 = new JButton("2");
         But2.setForeground(Color.RED);
         But2.setFont(buttonFont);
         panel_button.add(But2);
+        But2.setFocusable(false);
         But2.addActionListener(this);
 
         But3 = new JButton("3");
         But3.setForeground(Color.RED);
         But3.setFont(buttonFont);
         panel_button.add(But3);
+        But3.setFocusable(false);
         But3.addActionListener(this);
 
         plusButton = new JButton("+");
         plusButton.setFont(buttonFont);
         panel_button.add(plusButton);
+        plusButton.setFocusable(false);
         plusButton.addActionListener(this);
 
         //Row 8
@@ -263,29 +299,48 @@ class Main extends JFrame implements ActionListener {
         addSubButton = new JButton("±");
         addSubButton.setFont(buttonFont);
         panel_button.add(addSubButton);
+        addSubButton.setFocusable(false);
         addSubButton.addActionListener(this);
 
         But0 = new JButton("0");
         But0.setForeground(Color.RED);
         But0.setFont(buttonFont);
         panel_button.add(But0);
+        But0.setFocusable(false);
         But0.addActionListener(this);
 
         dotButton = new JButton(".");
         dotButton.setFont(buttonFont);
         panel_button.add(dotButton);
+        dotButton.setFocusable(false);
         dotButton.addActionListener(this);
 
         eqButton = new JButton("=");
         eqButton.setForeground(Color.RED);
         eqButton.setFont(buttonFont);
         panel_button.add(eqButton);
+        eqButton.setFocusable(false);
         eqButton.addActionListener(this);
 
         container.add("South", panel_button);
         container.add("Center", textPanel);
         container.add("North", historyPanel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Κώδικας για το keyTyped
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // Κώδικας για το keyPressed
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Κώδικας για το keyReleased
+        System.out.println("You Released key char: " + e.getKeyChar());
     }
 
 
@@ -346,27 +401,22 @@ class Main extends JFrame implements ActionListener {
 
         if (input.equals("+")) {
             updateText(entry, "+", entry.getCaretPosition());
-            entry.requestFocus();
         }
 
         if (input.equals("-")) {
             updateText(entry, "-", entry.getCaretPosition());
-            entry.requestFocus();
         }
 
         if (input.equals("÷")) {
             updateText(entry, "/", entry.getCaretPosition());
-            entry.requestFocus();
         }
 
         if (input.equals("MOD")) {
             updateText(entry, "mod(", entry.getCaretPosition());
-            entry.requestFocus();
         }
 
         if (input.equals("ABS")) {
             updateText(entry, "abs(", entry.getCaretPosition());
-            entry.requestFocus();
         }
 
         if (input.equals("log")) {
@@ -375,7 +425,6 @@ class Main extends JFrame implements ActionListener {
 
         if (input.equals("*")) {
             updateText(entry, "*", entry.getCaretPosition());
-            entry.requestFocus();
         }
 
         if (input.equals("C")) {
