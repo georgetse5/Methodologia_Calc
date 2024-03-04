@@ -18,13 +18,13 @@ class Main extends JFrame implements ActionListener {
     static double mm_1;
     int mm = 1, op_flag1 = 0, op_flag2 = 0, number_status = 1;
     char operator;
-    JButton But0, But1, But2, But3, But4, But5, But6, But7, But8, But9, clrButton, clrAllButton, pow2Button, pow3Button, expButton,
-            facButton, plusButton, minButton, divButton, logButton, recButton, mulButton, eqButton, addSubButton,
-            dotButton, mrButton, mcButton, mpButton, mmButton, msButton, sqrtButton, sinButton, cosButton, tanButton, modButton, absButton, backspaceButton;
+    JButton But0, But1, But2, But3, But4, But5, But6, But7, But8, But9, clrButton, clrAllButton, pow2Button, leftParButton, expButton,
+            facButton, plusButton, minButton, divButton, logButton, degreesToRadButton, mulButton, eqButton, addSubButton,
+            dotButton, mrButton, mcButton, mpButton, mmButton, msButton, sqrtButton, sinButton, cosButton, rightParButton, piButton, absButton, backspaceButton;
     Container container;
     JPanel panel_button;
 
-    String format;
+    String format, historyText="";
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.ENGLISH);
     DecimalFormat df = new DecimalFormat("##########.##########", symbols);
 
@@ -45,7 +45,7 @@ class Main extends JFrame implements ActionListener {
         history.setBorder(null);
         history.setEditable(false);
         history.setFont(buttonFont);
-        history.setText("0");
+        history.setText("");
         history.setBackground(Color.lightGray);
         history.setHorizontalAlignment(SwingConstants.RIGHT);
 
@@ -113,20 +113,20 @@ class Main extends JFrame implements ActionListener {
         panel_button.add(clrButton);
         clrButton.addActionListener(this);
 
-        recButton = new JButton("1/x");
-        recButton.setFont(buttonFont);
-        panel_button.add(recButton);
-        recButton.addActionListener(this);
-
         divButton = new JButton("÷");
         divButton.setFont(buttonFont);
         divButton.addActionListener(this);
         panel_button.add(divButton);
 
-        modButton = new JButton("MOD");
-        modButton.setFont(buttonFont);
-        modButton.addActionListener(this);
-        panel_button.add(modButton);
+        piButton = new JButton("Π");
+        piButton.setFont(buttonFont);
+        piButton.addActionListener(this);
+        panel_button.add(piButton);
+
+        degreesToRadButton = new JButton("rad");
+        degreesToRadButton.setFont(buttonFont);
+        degreesToRadButton.addActionListener(this);
+        panel_button.add(degreesToRadButton);
 
         absButton = new JButton("ABS");
         absButton.setFont(buttonFont);
@@ -155,17 +155,12 @@ class Main extends JFrame implements ActionListener {
         panel_button.add(cosButton);
         cosButton.addActionListener(this);
 
-        tanButton = new JButton("TAN");
-        tanButton.setFont(buttonFont);
-        panel_button.add(tanButton);
-        tanButton.addActionListener(this);
-
-        //Row 4
-
         pow2Button = new JButton("x²");
         pow2Button.setFont(buttonFont);
         panel_button.add(pow2Button);
         pow2Button.addActionListener(this);
+
+        //Row 4
 
         backspaceButton = new JButton("C");
         backspaceButton.setForeground(Color.BLUE);
@@ -173,15 +168,20 @@ class Main extends JFrame implements ActionListener {
         panel_button.add(backspaceButton);
         backspaceButton.addActionListener(this);
 
+        leftParButton = new JButton("(");
+        leftParButton.setFont(buttonFont);
+        panel_button.add(leftParButton);
+        leftParButton.addActionListener(this);
+
+        rightParButton = new JButton(")");
+        rightParButton.setFont(buttonFont);
+        panel_button.add(rightParButton);
+        rightParButton.addActionListener(this);
+
         expButton = new JButton("Exp");
         expButton.setFont(buttonFont);
         panel_button.add(expButton);
         expButton.addActionListener(this);
-
-        facButton = new JButton("n!");
-        facButton.setFont(buttonFont);
-        panel_button.add(facButton);
-        facButton.addActionListener(this);
 
         //Row 5
 
@@ -292,10 +292,10 @@ class Main extends JFrame implements ActionListener {
     // ActionListener
     public void actionPerformed(ActionEvent e) {
         String input = e.getActionCommand();
-        String historyText;
 
 
         if (input.equals("AC")) {
+            historyText = "";
             entry.setText("");
             history.setText("");
         }
@@ -359,6 +359,20 @@ class Main extends JFrame implements ActionListener {
             entry.requestFocus();
         }
 
+        if (input.equals("MOD")) {
+            updateText(entry, "mod(", entry.getCaretPosition());
+            entry.requestFocus();
+        }
+
+        if (input.equals("ABS")) {
+            updateText(entry, "abs(", entry.getCaretPosition());
+            entry.requestFocus();
+        }
+
+        if (input.equals("log")) {
+            updateText(entry, "log10(", entry.getCaretPosition());
+        }
+
         if (input.equals("*")) {
             updateText(entry, "*", entry.getCaretPosition());
             entry.requestFocus();
@@ -368,10 +382,67 @@ class Main extends JFrame implements ActionListener {
             backspaceBtn(entry);
         }
 
+        if (input.equals("(")) {
+            updateText(entry, "(", entry.getCaretPosition());
+        }
+
+        if (input.equals(")")) {
+            updateText(entry, ")", entry.getCaretPosition());
+        }
+
+        if (input.equals("SIN")) {
+            updateText(entry, "sin(", entry.getCaretPosition());
+        }
+
+        if (input.equals("COS")) {
+            updateText(entry, "cos(", entry.getCaretPosition());
+        }
+
+        if (input.equals("Π")) {
+            updateText(entry, "pi", entry.getCaretPosition());
+        }
+
+        if (input.equals("rad")) {
+            updateText(entry, "rad(", entry.getCaretPosition());
+        }
+
+        if (input. equals("x²")) {
+            updateText(entry, "^2", entry.getCaretPosition());
+        }
+
+        if (input. equals("Exp")) {
+            updateText(entry, "^", entry.getCaretPosition());
+        }
+
+        if (input. equals("√")) {
+            updateText(entry, "sqrt(", entry.getCaretPosition());
+        }
+
         if (input.equals("=")) {
+            historyText = historyText + " || " + entry.getText();
+            history.setText(historyText);
             equalsButton(entry);
         }
-    }
+
+        if (input.equals(".")) {
+            updateText(entry, ".", entry.getCaretPosition());
+        }
+
+        if (input.equals("±")) {
+            String str = entry.getText();
+            char firstChar = str.charAt(0);
+            String minusSymbol = "-";
+            String pureStr;
+            if (firstChar == '-') {
+                pureStr = str.substring(1);
+                entry.setText(pureStr);
+            }
+            else if (firstChar != '-') {
+                pureStr = minusSymbol + str;
+                entry.setText(pureStr);
+                }
+            }
+        }
 
     private static void updateText(JTextField entryText, String strToAdd, int cursorPos) {
         String oldStr = entryText.getText();
