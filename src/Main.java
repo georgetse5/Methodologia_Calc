@@ -353,7 +353,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
         if (tempCode == 127) {
             entry.setText("");
         }
-        if (tempCode == 110) {
+        if (tempChar == ',') {
             updateText(entry, ".", entry.getCaretPosition());
         }
 
