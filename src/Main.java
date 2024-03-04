@@ -349,6 +349,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
 
         char tempChar = e.getKeyChar();
         int tempCode = e.getKeyCode();
+
         if (keyCharList.contains(tempChar)){
             updateText(entry, String.valueOf(tempChar), entry.getCaretPosition());
         }
@@ -362,8 +363,8 @@ class Main extends JFrame implements KeyListener, ActionListener{
             entry.setText("");
         }
 
-        System.out.println("You Released key char: " + e.getKeyChar());
-        System.out.println("You Released key char: " + e.getKeyCode());
+//        System.out.println("You Released key char: " + e.getKeyChar());
+//        System.out.println("You Released key char: " + e.getKeyCode());
     }
 
 
