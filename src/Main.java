@@ -68,16 +68,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
         entry.setHorizontalAlignment(SwingConstants.RIGHT);
         entry.setBorder(null);
 
-//        entry.addKeyListener(new KeyAdapter() {
-//            public void keyTyped(KeyEvent keyevent) {
-//                char c = keyevent.getKeyChar();
-//                if (c >= '0' && c <= '9') {
-//
-//                } else {
-//                    keyevent.consume();
-//                }
-//            }
-//        });
+
         //        historyPanel.add(historyField, BorderLayout.NORTH);
         historyPanel.add(history);
         textPanel.add(entry);
@@ -554,15 +545,6 @@ class Main extends JFrame implements KeyListener, ActionListener{
         entry.setText(result);
         entry.setCaretPosition(result.length());
 
-    }
-
-
-    public static double fact(double n) {
-        if (n == 0) {
-            return 1;
-        } else {
-            return n * fact(n - 1);
-        }
     }
 
 
