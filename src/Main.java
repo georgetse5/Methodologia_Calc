@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static javax.swing.UIManager.getString;
@@ -23,6 +24,14 @@ class Main extends JFrame implements KeyListener, ActionListener{
             dotButton, mrButton, mcButton, mpButton, mmButton, msButton, sqrtButton, sinButton, cosButton, rightParButton, piButton, absButton, backspaceButton;
     Container container;
     JPanel panel_button;
+
+    ArrayList<Character> keyCharList = new ArrayList<>() {{
+        add('1'); add('2'); add('3'); add('4'); add('5');
+        add('6'); add('7'); add('8'); add('9'); add('0');
+        add('/'); add('*'); add('-'); add('+'); add('(');
+        add(')'); add('^'); add('.');
+        // "Enter" keycode 10
+    }};
 
     String format, historyText="";
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.ENGLISH);
@@ -329,18 +338,32 @@ class Main extends JFrame implements KeyListener, ActionListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // Κώδικας για το keyTyped
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // Κώδικας για το keyPressed
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // Κώδικας για το keyReleased
+
+        char tempChar = e.getKeyChar();
+        int tempCode = e.getKeyCode();
+        if (keyCharList.contains(tempChar)){
+            updateText(entry, String.valueOf(tempChar), entry.getCaretPosition());
+        }
+        if (tempCode == 10) {
+            equalsButton(entry);
+        }
+        if (tempCode == 8) {
+            backspaceBtn(entry);
+        }
+        if (tempCode == 127) {
+            entry.setText("");
+        }
+
         System.out.println("You Released key char: " + e.getKeyChar());
+        System.out.println("You Released key char: " + e.getKeyCode());
     }
 
 
@@ -468,8 +491,6 @@ class Main extends JFrame implements KeyListener, ActionListener{
         }
 
         if (input.equals("=")) {
-            historyText = historyText + " || " + entry.getText();
-            history.setText(historyText);
             equalsButton(entry);
         }
 
@@ -518,6 +539,8 @@ class Main extends JFrame implements KeyListener, ActionListener{
 
 
     public void equalsButton(JTextField textField) {
+        historyText = historyText + " || " + entry.getText();
+        history.setText(historyText);
         String userExp = entry.getText();
 
 //        userExp = userExp.replaceAll("÷", "/");
