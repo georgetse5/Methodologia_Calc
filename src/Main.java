@@ -113,10 +113,10 @@ class Main extends JFrame implements ActionListener {
         panel_button.add(clrButton);
         clrButton.addActionListener(this);
 
-        divButton = new JButton("÷");
-        divButton.setFont(buttonFont);
-        divButton.addActionListener(this);
-        panel_button.add(divButton);
+        pow2Button = new JButton("x²");
+        pow2Button.setFont(buttonFont);
+        panel_button.add(pow2Button);
+        pow2Button.addActionListener(this);
 
         piButton = new JButton("Π");
         piButton.setFont(buttonFont);
@@ -155,10 +155,10 @@ class Main extends JFrame implements ActionListener {
         panel_button.add(cosButton);
         cosButton.addActionListener(this);
 
-        pow2Button = new JButton("x²");
-        pow2Button.setFont(buttonFont);
-        panel_button.add(pow2Button);
-        pow2Button.addActionListener(this);
+        expButton = new JButton("Exp");
+        expButton.setFont(buttonFont);
+        panel_button.add(expButton);
+        expButton.addActionListener(this);
 
         //Row 4
 
@@ -178,10 +178,10 @@ class Main extends JFrame implements ActionListener {
         panel_button.add(rightParButton);
         rightParButton.addActionListener(this);
 
-        expButton = new JButton("Exp");
-        expButton.setFont(buttonFont);
-        panel_button.add(expButton);
-        expButton.addActionListener(this);
+        divButton = new JButton("÷");
+        divButton.setFont(buttonFont);
+        divButton.addActionListener(this);
+        panel_button.add(divButton);
 
         //Row 5
 
@@ -469,7 +469,7 @@ class Main extends JFrame implements ActionListener {
 
 
     public void equalsButton(JTextField textField) {
-        String userExp = entry.getText().toString();
+        String userExp = entry.getText();
 
 //        userExp = userExp.replaceAll("÷", "/");
 //        userExp = userExp.replaceAll("×", "*");
