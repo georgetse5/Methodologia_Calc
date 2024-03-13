@@ -15,7 +15,7 @@ import static javax.swing.UIManager.getString;
 class Main extends JFrame implements KeyListener, ActionListener{
 
     JTextField entry, history;
-    double stath1, stath2, apotel, met, memStored;
+    double memoryValue, stath2, apotel, met, memStored;
     static double mm_1;
     int mm = 1, op_flag1 = 0, op_flag2 = 0, number_status = 1;
     char operator;
@@ -28,7 +28,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
     ArrayList<Character> keyCharList = new ArrayList<>() {{
         add('1'); add('2'); add('3'); add('4'); add('5');
         add('6'); add('7'); add('8'); add('9'); add('0');
-        add('/'); add('*'); add('-'); add('+'); add('(');
+        add('/'); add('-'); add('+'); add('(');
         add(')'); add('^'); add('.');
         // "Enter" keycode 10
     }};
@@ -230,7 +230,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
         But9.setFocusable(false);
         But9.addActionListener(this);
 
-        mulButton = new JButton("*");
+        mulButton = new JButton("×");
         mulButton.setFont(buttonFont);
         panel_button.add(mulButton);
         mulButton.setFocusable(false);
@@ -335,6 +335,8 @@ class Main extends JFrame implements KeyListener, ActionListener{
     public void keyPressed(KeyEvent e) {
     }
 
+// =====================================  KeyListener  =====================================
+
     @Override
     public void keyReleased(KeyEvent e) {
 
@@ -343,6 +345,9 @@ class Main extends JFrame implements KeyListener, ActionListener{
 
         if (keyCharList.contains(tempChar)){
             updateText(entry, String.valueOf(tempChar), entry.getCaretPosition());
+        }
+        if (tempCode == 106 || tempCode == 56) {
+            updateText(entry, "×" , entry.getCaretPosition());
         }
         if (tempCode == 10) {
             equalsButton(entry);
@@ -362,7 +367,8 @@ class Main extends JFrame implements KeyListener, ActionListener{
     }
 
 
-    // ActionListener
+// =====================================  ActionListener  =====================================
+
     public void actionPerformed(ActionEvent e) {
         String input = e.getActionCommand();
 
@@ -371,11 +377,54 @@ class Main extends JFrame implements KeyListener, ActionListener{
             historyText = "";
             entry.setText("");
             history.setText("");
+            memoryValue = 0.0;
         }
 
         if (input.equals("CE")) {
             entry.setText("");
         }
+
+        if (input.equals("MC")) {
+            memoryClear();
+        }
+
+        if (input.equals("MR")) {
+            if (memoryValue == 0.0) {
+            }
+            else {
+                updateText(entry, String.valueOf(memoryRecall()), entry.getCaretPosition());
+            }
+        }
+
+        if (input.equals("MS")) {
+            memoryStore(Double.parseDouble(entry.getText()));
+        }
+
+        if (input.equals("M+")) {
+            if (memoryValue == 0.0) {
+            }
+            else {
+                double tempval = Double.parseDouble(entry.getText());
+                System.out.println(tempval);
+                Double tempResult = memoryAdd(tempval);
+                entry.setText("");
+                entry.setText(String.valueOf(tempResult));
+            }
+        }
+
+        if (input.equals("M-")) {
+            System.out.println(memoryValue); // Print memoryValue for debugging (optional)
+
+            // Parse the text from the entry field to a double
+            double entryValue = Double.parseDouble(entry.getText());
+
+            // Subtract the entryValue from memoryValue
+            memoryValue -= entryValue;
+
+            // Update the entry field with the new memoryValue
+            entry.setText(String.valueOf(memoryValue));
+        }
+
 
         if (input.equals("1")) {
             updateText(entry, "1", entry.getCaretPosition());
@@ -426,7 +475,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
         }
 
         if (input.equals("÷")) {
-            updateText(entry, "/", entry.getCaretPosition());
+            updateText(entry, "÷", entry.getCaretPosition());
         }
 
         if (input.equals("MOD")) {
@@ -441,8 +490,8 @@ class Main extends JFrame implements KeyListener, ActionListener{
             updateText(entry, "log10(", entry.getCaretPosition());
         }
 
-        if (input.equals("*")) {
-            updateText(entry, "*", entry.getCaretPosition());
+        if (input.equals("×")) {
+            updateText(entry, "×", entry.getCaretPosition());
         }
 
         if (input.equals("C")) {
@@ -509,6 +558,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
             }
         }
 
+
     private static void updateText(JTextField entryText, String strToAdd, int cursorPos) {
         String oldStr = entryText.getText();
 
@@ -538,8 +588,8 @@ class Main extends JFrame implements KeyListener, ActionListener{
         history.setText(historyText);
         String userExp = entry.getText();
 
-//        userExp = userExp.replaceAll("÷", "/");
-//        userExp = userExp.replaceAll("×", "*");
+        userExp = userExp.replaceAll("÷", "/");
+        userExp = userExp.replaceAll("×", "*");
 
         Expression exp = new Expression(userExp);
 
@@ -548,6 +598,22 @@ class Main extends JFrame implements KeyListener, ActionListener{
         entry.setText(result);
         entry.setCaretPosition(result.length());
 
+    }
+
+    public void memoryStore(double value) {
+        memoryValue = value;
+    }
+
+    public double memoryRecall() {
+        return memoryValue;
+    }
+
+    public void memoryClear() {
+        memoryValue = 0.0;
+    }
+
+    public double memoryAdd(double value) {
+        return memoryValue += value;
     }
 
 
