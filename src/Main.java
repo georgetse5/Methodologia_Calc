@@ -51,7 +51,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
         JPanel historyPanel = new JPanel();
 
         Font textFont = new Font("SansSerif", Font.BOLD, 20);
-        Font buttonFont = new Font("Serif", Font.ITALIC, 25);
+        Font buttonFont = new Font("Serif", Font.PLAIN, 25);
 
         history = new JTextField(25);
         history.setBorder(null);
@@ -117,7 +117,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
         clrAllButton.setFocusable(false);
         clrAllButton.addActionListener(this);
 
-        clrButton = new JButton("CE");
+        clrButton = new JButton("C");
         clrButton.setForeground(Color.RED);
         clrButton.setFont(buttonFont);
         panel_button.add(clrButton);
@@ -130,7 +130,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
         pow2Button.setFocusable(false);
         pow2Button.addActionListener(this);
 
-        piButton = new JButton("Π");
+        piButton = new JButton("π");
         piButton.setFont(buttonFont);
         piButton.setFocusable(false);
         piButton.addActionListener(this);
@@ -182,7 +182,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
 
         //Row 4
 
-        backspaceButton = new JButton("C");
+        backspaceButton = new JButton("⌫");
         backspaceButton.setForeground(Color.BLUE);
         backspaceButton.setFont(buttonFont);
         panel_button.add(backspaceButton);
@@ -380,7 +380,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
             memoryValue = 0.0;
         }
 
-        if (input.equals("CE")) {
+        if (input.equals("C")) {
             entry.setText("");
         }
 
@@ -494,7 +494,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
             updateText(entry, "×", entry.getCaretPosition());
         }
 
-        if (input.equals("C")) {
+        if (input.equals("⌫")) {
             backspaceBtn(entry);
         }
 
@@ -514,7 +514,7 @@ class Main extends JFrame implements KeyListener, ActionListener{
             updateText(entry, "cos(", entry.getCaretPosition());
         }
 
-        if (input.equals("Π")) {
+        if (input.equals("π")) {
             updateText(entry, "pi", entry.getCaretPosition());
         }
 
